@@ -1,3 +1,14 @@
+<?php
+require_once '../backend/conexion.php';
+$tipos = [];
+$sql = "SELECT DISTINCT tipo_transporte FROM transporte";
+$result = $conexion->query($sql);
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $tipos[] = $row['tipo_transporte'];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -56,10 +67,12 @@
                 </div>
                 <div class="card-body">
                     <form id="transportForm" method="POST" enctype="multipart/form-data">
-                        <div class="mb-3">
-                            <label for="type" class="form-label">Tipo de Transporte</label>
-                            <input type="text" class="form-control" name="tipo" required>
-                        </div>
+                         <select class="form-select mb-3" id="transporte" name="tipo_transporte" required>
+                            <option value="">Seleccione Tipo de Transporte</option>
+                            <?php foreach ($tipos as $tipo): ?>
+                                <option value="<?php echo htmlspecialchars($tipo); ?>"><?php echo htmlspecialchars($tipo); ?></option>
+                            <?php endforeach; ?>
+                        </select>
                         <div class="mb-3">
                             <label for="provider" class="form-label">Proveedor</label>
                             <input type="email" class="form-control" name="correo" placeholder="agenciamiguel@gmail.com" required>
@@ -116,7 +129,7 @@
 
 
 <script src="../SWEETALERT/sweetalert2.all.js"></script>
-<!-- <script src="./js/transporte.js"></script> -->
+<script src="./js/transporte.js"></script>
  <!-- <script src="./js/trans.js"></script> -->
 </body>
 </html>

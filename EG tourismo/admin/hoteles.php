@@ -1,3 +1,32 @@
+<?php
+require_once '../backend/conexion.php';
+$tipos = [];
+$sql = "SELECT DISTINCT tipo FROM actividad";
+$result = $conexion->query($sql);
+if ($result) {
+    while ($row = $result->fetch_assoc()) {
+        $tipos[] = $row['tipo'];
+    }
+}
+
+$servicios = [];
+$sqlServicios = "SELECT DISTINCT nombre FROM servicios";
+$resultServicios = $conexion->query($sqlServicios);
+if ($resultServicios) {
+    while ($row = $resultServicios->fetch_assoc()) {
+        $servicios[] = $row['nombre'];
+    }
+}
+
+$estrellas = [];
+$sqlEstrellas = "SELECT DISTINCT estrellas FROM hotel";
+$resultEstrellas = $conexion->query($sqlEstrellas);
+if ($resultEstrellas) {
+    while ($row = $resultEstrellas->fetch_assoc()) {
+        $estrellas[] = $row['estrellas'];
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -54,53 +83,53 @@
                     <i class="fas fa-hotel me-2"></i>Nuevo Hotel
                 </div>
                 <div class="card-body">
-                    <form id="hotelForm">
+                    <form id="hotelForm" method="post" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre del Hotel</label>
-                            <input type="text" class="form-control" id="name" required>
+                            <input type="text" class="form-control" id="nom" required>
                         </div>
                         <div class="mb-3">
                             <label for="location" class="form-label">Correo</label>
-                            <input type="text" class="form-control" id="location" required>
+                            <input type="text" class="form-control" id="correo" name="correo" required>
                         </div>
                         <div class="mb-3">
                             <label for="location" class="form-label">Telefono</label>
-                            <input type="text" class="form-control" id="location" required>
+                            <input type="text" class="form-control" id="telefono" name="telefono" required>
                         </div>
                         <div class="mb-3">
                             <label for="ubicacion" class="form-label">Ubicacion</label>
-                            <input type="text" class="form-control" id="ubicacion" required>
+                            <input type="text" class="form-control" id="ubicacion" name="ubicacion" required>
                         </div>
                         <div class="mb-3">
                             <label for="stars" class="form-label">Servicios</label>
-                            <select class="form-control" id="stars" required>
+                            <select class="form-control" id="stars" name="servicios" required>
                                 <option value="">Seleccione</option>
-                                <option value="1">Wifi</option>
-                                <option value="1">Piscina</option>
+                                <?php foreach ($servicios as $servicio): ?>
+                                    <option value="<?php echo htmlspecialchars($servicio); ?>"><?php echo htmlspecialchars($servicio); ?></option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="stars" class="form-label">Actividades</label>
-                            <select class="form-control" id="stars" required>
+                            <select class="form-control" id="stars" name="actividad" required>
                                 <option value="">Seleccione</option>
-                                <option value="1">Senderismo</option>
-                                <option value="1">Ir a las Montañas</option>
+                                <?php foreach ($tipos as $tipo): ?>
+                                    <option value="<?php echo htmlspecialchars($tipo); ?>"><?php echo htmlspecialchars($tipo); ?></option>
+                                <?php endforeach; ?>
+
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="stars" class="form-label">Estrellas</label>
-                            <select class="form-control" id="stars" required>
-                                <option value="">Seleccione</option>
-                                <option value="1">1 estrella</option>
-                                <option value="2">2 estrellas</option>
-                                <option value="3">3 estrellas</option>
-                                <option value="4">4 estrellas</option>
-                                <option value="5">5 estrellas</option>
+                            <select class="form-control" id="stars" name="estrellas" required>
+                                <?php foreach ($estrellas as $estrella): ?>
+                                    <option value="<?php echo htmlspecialchars($estrella); ?>"><?php echo htmlspecialchars($estrella); ?> estrellas</option>
+                                <?php endforeach; ?>
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="image" class="form-label">Imagen</label>
-                            <input type="file" class="form-control" id="image" accept="image/*" required>
+                            <input type="file" class="form-control" id="image" name="foto" accept="image/*" required>
                         </div>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-save me-2"></i>Guardar
@@ -126,7 +155,7 @@
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="hotelTableBody">
                                 <!-- Hoteles agregados dinámicamente -->
                             </tbody>
                         </table>

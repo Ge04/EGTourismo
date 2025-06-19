@@ -132,7 +132,7 @@ $restaurants = $restaurant->getAllRestaurants();
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="tbodyRestaurante">
                                 <!-- Los restaurantes aparecerán aquí dinámicamente -->
                             </tbody>
                         </table>
@@ -293,5 +293,6 @@ $restaurants = $restaurant->getAllRestaurants();
             }
         }
     </script>
+    <script src="./js/restaurantes.js"></script>
 </body>
 </html>

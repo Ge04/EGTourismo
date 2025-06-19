@@ -1,59 +1,58 @@
-// const formularioRestaurante = document.querySelector("#restaurantForm");
-// formularioRestaurante.addEventListener("submit", function (e) {
-//     e.preventDefault(); // Prevent the default form submission
+const formularioRestaurante = document.querySelector("#restaurantForm");
+formularioRestaurante.addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent the default form submission
 
-//     const formData = new FormData(formularioRestaurante);
-//     const xhr = new XMLHttpRequest();
+    const formData = new FormData(formularioRestaurante);
+    const xhr = new XMLHttpRequest();
 
-//     xhr.open("POST", "./insertRestaurante.php", true);
+    xhr.open("POST", "./insertRestaurante.php", true);
 
-//     xhr.onload = function () {
-//         if (xhr.readyState == 4 && xhr.status == 200) {
-//             formularioRestaurante.reset(); // Usar === para comparación
-//             const response = JSON.parse(xhr.responseText);
-//             // console.log(xhr.response);
-//             if (response) {
-//                 Swal.fire({
-//                     icon: 'success',
-//                     title: 'Restaurante registrado correctamente',
-//                     showConfirmButton: false,
-//                     timer: 1500
-//                 });
-//                 formularioRestaurante.reset(); // Reset the form
-//                 CargarDatos(); // Reload the data
-//             } else {
-//                 Swal.fire({
-//                     icon: 'error',
-//                     title: 'Error al registrar el Restaurante',
-//                     text: 'Por favor, inténtelo de nuevo.'
-//                 });
-//             }
-//         } else if (xhr.readyState === 4) {
-//             Swal.fire({
-//                 icon: 'error',
-//                 title: 'Error de conexión',
-//                 text: 'No se pudo conectar al servidor.'
-//             });
-//         }
-//     };
+    xhr.onload = function () {
+        if (xhr.readyState == 4 && xhr.status == 200) {
+            formularioRestaurante.reset(); // Usar === para comparación
+            const response = JSON.parse(xhr.responseText);
+            // console.log(xhr.response);
+            if (response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Restaurante registrado correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                formularioRestaurante.reset(); // Reset the form
+                CargarDatos(); // Reload the data
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error al registrar el Restaurante',
+                    text: 'Por favor, inténtelo de nuevo.'
+                });
+            }
+        } else if (xhr.readyState === 4) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de conexión',
+                text: 'No se pudo conectar al servidor.'
+            });
+        }
+    };
 
-//     xhr.send(formData);
-// });
+    xhr.send(formData);
+});
 function CargarDatos() {
     let xhr = new XMLHttpRequest();
-    xhr.open('GET', './mostrarHotel.php', true);
+    xhr.open('GET', './mostrarRestauran.php', true);
     xhr.onload = function () {
         let datos = JSON.parse(xhr.response);
-        let tabla = document.getElementById('hotelTableBody');
+        let tabla = document.getElementById('tbodyRestaurante');
         tabla.innerHTML = '';   // Clear the table body before adding new rows
 
         for (let data of datos) {
             tabla.innerHTML += `
              <tr>
-             <td><img src="../img/${data.imagen}" alt="Restaurante" style="width: 100px; height: auto;"></td>
-             <td>${data.nom_hotel.substring(0,10)}</td>
-             <td>${data.ubicacion.substring(0,10)}</td> 
-             <td>${data.estrellas.substring(0,10)}</td> 
+             <td><img src="../img/${data.imag}" alt="Restaurante" style="width: 100px; height: auto;"></td>
+             <td>${data.nombre.substring(11,20)}</td>
+             <td>${data.direccion.substring(5,16)}</td> 
              <td>
                 <button class="btn btn-danger" onclick="EliminarTransporte(${data.id})"><i class="fas fa-trash"></i></button>
              </td>
@@ -65,7 +64,7 @@ function CargarDatos() {
     };
     xhr.send();
 }
-// setInterval(CargarDatos,6000); // Refresh data every 3 seconds
+setInterval(CargarDatos,6000); // Refresh data every 3 seconds
 CargarDatos();
 
 // function EliminarTransporte(id) {
