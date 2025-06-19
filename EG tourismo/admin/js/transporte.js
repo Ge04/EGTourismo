@@ -49,7 +49,7 @@ function CargarDatos() {
         for (let data of datos) {
             tabla.innerHTML += `
              <tr>
-             <td><img src="../img/${data.imag}" alt="Transporte" style="width: 100px; height: auto;"></td>
+             <td><img src="../img/${data.imag}" alt="Transporte" style="width: 20px; height: 20px; border-radius:100%;background:black;"></td>
              <td>${data.tipo_transporte}</td>
              <td>${data.correo}</td>
              <td>${data.precio}</td> 

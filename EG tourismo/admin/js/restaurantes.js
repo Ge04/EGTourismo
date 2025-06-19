@@ -50,7 +50,7 @@ function CargarDatos() {
         for (let data of datos) {
             tabla.innerHTML += `
              <tr>
-             <td><img src="../img/${data.imag}" alt="Restaurante" style="width: 100px; height: auto;"></td>
+             <td><img src="../img/${data.imag}" alt="Restaurante" style="width: 20px; height: 20px; border-radius:50%;background:black;"></td>
              <td>${data.nombre.substring(11,20)}</td>
              <td>${data.direccion.substring(5,16)}</td> 
              <td>

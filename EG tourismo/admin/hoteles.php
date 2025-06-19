@@ -27,6 +27,7 @@ if ($resultEstrellas) {
     }
 }
 ?>
+<link rel="stylesheet" href="../SWEETALERT/sweetalert2.css">
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -41,6 +42,7 @@ if ($resultEstrellas) {
             box-shadow: 0 4px 16px rgba(241, 196, 15, 0.08);
             border: none;
             margin-bottom: 2rem;
+           
         }
         .card-header {
             background: #f1c40f;
@@ -213,5 +215,6 @@ if ($resultEstrellas) {
     });
 </script>
 <script src="./js/hotel.js"></script>
+<script src="../SWEETALERT/sweetalert2.all.js"></script>
 </body>
 </html>
